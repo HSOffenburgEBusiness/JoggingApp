@@ -36,7 +36,8 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-       $("#kamera").bind("tap", app.starteKamera);
+       $("#start").bind("tap", app.starteKamera);
+        $("#kamera").bind("tap", app.starteKamera);
 	   app.bestimmePosition();
 	   app.ladeGoogleMap();
 	
@@ -46,6 +47,7 @@ var app = {
 	bestimmePosition: function() {
 		navigator.geolocation.
 		getCurrentPosition(app.onSuccessGPS, app.onErrorGPS);
+
 	},
 	
 	onSuccessGPS: function(position) {
@@ -54,7 +56,7 @@ var app = {
 		app.map.setCenter(
 			{lat: latitude, lng: longitude}
 		);
-		
+        app.map.addMarker(latitude, longitude);
 	},
 	
 	onErrorGPS: function(error) {
@@ -68,13 +70,14 @@ var app = {
 					lng: 7},
           zoom: 8
         });
+
 	},
 	
 	starteKamera: function() {
 		var options = {
 			destinationType : 1
 		};
-		navigator.camera.getPicture(app.onSuccess, app.OnFail, options);
+		navigator.camera.getPicture(app.onSuccess, app.onFail, options);
 	},
 	
 	onSuccess: function(imageData) {
