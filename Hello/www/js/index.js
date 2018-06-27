@@ -72,6 +72,26 @@ var app = {
         });
 
 	},
+
+	speichern: function(dataToSave){
+        $(document).ready(function() {
+        	//noch anpassen
+            $.ajax({
+                type: "GET",
+                url: "https://www.devquora.com/test/json.php",
+                crossDomain: true,
+                cache: false,
+                success: function(result) {
+                    var dataToSave = $.parseJSON(dataToSave);
+                    $.each(result, function(i, field) {
+                        $("#output").append("Title: " + field.title + " duration: " + field.duration + " Price:" + field.price + "<br/>");
+                    });
+                }
+            });
+        });
+	},
+
+	aufruf: function(){},
 	
 	starteKamera: function() {
 		var options = {
